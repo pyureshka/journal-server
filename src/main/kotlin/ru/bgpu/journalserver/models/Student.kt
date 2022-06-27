@@ -10,5 +10,5 @@ data class Student (
     var firstName: String? = null,
     var lastName: String? = null,
     @ManyToOne(fetch = FetchType.LAZY)
-    var classItem: Class
+    var classItem: ClassItem? = null
 ) {}

@@ -10,7 +10,7 @@ data class Grade (
     var grade: Float? = null,
     var date: Int? = null,
     @ManyToOne (fetch = FetchType.LAZY)
-    var student: Student,
+    var student: Student? = null,
     @ManyToOne(fetch = FetchType.LAZY)
-    var subject: Subject
+    var subject: Subject? = null
 )

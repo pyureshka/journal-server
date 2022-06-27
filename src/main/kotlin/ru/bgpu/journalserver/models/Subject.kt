@@ -7,5 +7,7 @@ data class Subject (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var title: String? = null
+    var title: String? = null,
+    @ManyToMany(mappedBy = "subjects")
+    var classItems: List<Class>
 )

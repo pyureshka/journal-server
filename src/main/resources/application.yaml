@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/journal
+    username: postgres
+    password: root
+    driverClassName: org.postgresql.Driver
+  sql:
+    init:
+      platform: postgres

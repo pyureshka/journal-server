@@ -1,15 +1,14 @@
 package ru.bgpu.journalserver.models
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class Class (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    var liter: Char? = null,
+    var liter: String? = null,
     var number: Int? = null,
+    @ManyToMany(fetch = FetchType.LAZY)
+    var subjects: List<Subject>
 )

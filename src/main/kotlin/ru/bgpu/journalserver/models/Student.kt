@@ -1,5 +1,6 @@
 package ru.bgpu.journalserver.models
 
+import ru.bgpu.journalserver.dto.StudentDto
 import javax.persistence.*
 
 @Entity
@@ -11,4 +12,11 @@ data class Student (
     var lastName: String? = null,
     @ManyToOne(fetch = FetchType.LAZY)
     var classItem: ClassItem? = null
-) {}
+) {
+    fun toDto(): StudentDto = StudentDto(
+        id = id,
+        firstName = firstName,
+        lastName = lastName,
+        classItem = classItem
+    )
+}

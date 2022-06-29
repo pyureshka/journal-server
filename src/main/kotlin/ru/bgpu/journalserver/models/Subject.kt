@@ -8,6 +8,6 @@ data class Subject(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     var title: String? = null,
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany(mappedBy = "subjects", cascade = [CascadeType.ALL])
     var classItems: List<ClassItem> = ArrayList()
 )

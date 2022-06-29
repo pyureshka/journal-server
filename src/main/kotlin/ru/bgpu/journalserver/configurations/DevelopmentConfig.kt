@@ -12,7 +12,10 @@ import ru.bgpu.journalserver.services.ClassItemService
 import ru.bgpu.journalserver.services.GradeService
 import ru.bgpu.journalserver.services.StudentService
 import ru.bgpu.journalserver.services.SubjectService
-import java.util.Random
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.*
+import kotlin.collections.ArrayList
 
 @Configuration
 class DevelopmentConfig {
@@ -48,6 +51,8 @@ class DevelopmentConfig {
         val listObjStudent: MutableList<Student> = mutableListOf()
         val listObjClass: MutableList<ClassItem> = mutableListOf()
         val listObjGrade: MutableList<Grade> = mutableListOf()
+        val localDate: LocalDate = LocalDate.now()
+
 
         listSubject.forEach{
             listObjSubject.add(subjectService.save(Subject(title = it)))
@@ -78,9 +83,11 @@ class DevelopmentConfig {
         listObjStudent.forEach {
             for (i in 0 until it.classItem!!.subjects.size) {
                 for (j in 0..random.nextInt(5)) {
+
                     listObjGrade.add(gradeService.save(Grade (
                             grade = random.nextInt(4)+1,
-                            student = it, subject = it.classItem!!.subjects[i]
+                            student = it, subject = it.classItem!!.subjects[i],
+                            date =  Date.from(localDate.minusDays(random.nextLong(30)).atStartOfDay(ZoneId.systemDefault()).toInstant())
                         )
                     ))
                 }

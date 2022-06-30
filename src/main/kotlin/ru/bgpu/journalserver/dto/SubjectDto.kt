@@ -5,12 +5,10 @@ import ru.bgpu.journalserver.models.Subject
 
 data class SubjectDto(
     var id: Long? = null,
-    var title: String? = null,
-    var classItems: List<ClassItem> = ArrayList()
+    var title: String? = null
 ) {
     fun toSubject() = Subject(
         id = id,
-        title = title,
-        classItems = classItems
+        title = title
     )
 }

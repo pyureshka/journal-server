@@ -16,7 +16,6 @@ data class Student (
     fun toDto(): StudentDto = StudentDto(
         id = id,
         firstName = firstName,
-        lastName = lastName,
-        classItem = classItem
+        lastName = lastName
     )
 }

@@ -11,4 +11,5 @@ class SubjectService {
     @Autowired
     lateinit var subjectRepository: SubjectRepository
     fun save(subject: Subject) = subjectRepository.save(subject)
+    fun getAllSubjects(): List<Subject> = subjectRepository.findAll() as List<Subject>
 }

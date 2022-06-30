@@ -12,3 +12,8 @@ spring:
   sql:
     init:
       platform: postgres
+  server:
+    port: 8080
+    error:
+      include-message: always
+      include-binding-errors: always

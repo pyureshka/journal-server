@@ -6,14 +6,12 @@ import ru.bgpu.journalserver.models.Student
 data class StudentDto(
     var id: Long? = null,
     var firstName: String? = null,
-    var lastName: String? = null,
-    var classItem: ClassItem? = null
+    var lastName: String? = null
 ) {
 
     fun toStudent() = Student(
         id = id,
         firstName = firstName,
-        lastName = lastName,
-        classItem = classItem
+        lastName = lastName
     )
 }

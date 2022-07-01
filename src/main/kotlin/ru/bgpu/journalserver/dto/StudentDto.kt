@@ -1,6 +1,5 @@
 package ru.bgpu.journalserver.dto
 
-import ru.bgpu.journalserver.models.ClassItem
 import ru.bgpu.journalserver.models.Student
 
 data class StudentDto(

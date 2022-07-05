@@ -87,7 +87,7 @@ class DevelopmentConfig {
                     listObjGrade.add(gradeService.save(Grade (
                             grade = random.nextInt(4)+1,
                             student = it, subject = it.classItem!!.subjects[i],
-                            date =  Date.from(localDate.minusDays(random.nextLong(30)).atStartOfDay(ZoneId.systemDefault()).toInstant())
+                            date =  Date.from(localDate.minusDays(random.nextInt(30).toLong()).atStartOfDay(ZoneId.systemDefault()).toInstant())
                         )
                     ))
                 }

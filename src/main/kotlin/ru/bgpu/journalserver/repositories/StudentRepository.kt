@@ -8,6 +8,5 @@ import ru.bgpu.journalserver.models.Student
 
 @Repository
 interface StudentRepository : CrudRepository<Student, Long> {
-
     fun findStudentByClassItem(classItem: ClassItem): List<Student>
 }

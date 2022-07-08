@@ -4,14 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import ru.bgpu.journalserver.models.ClassItem
-import ru.bgpu.journalserver.models.Grade
-import ru.bgpu.journalserver.models.Student
-import ru.bgpu.journalserver.models.Subject
-import ru.bgpu.journalserver.services.ClassItemService
-import ru.bgpu.journalserver.services.GradeService
-import ru.bgpu.journalserver.services.StudentService
-import ru.bgpu.journalserver.services.SubjectService
+import ru.bgpu.journalserver.models.*
+import ru.bgpu.journalserver.services.*
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
@@ -43,6 +37,8 @@ class DevelopmentConfig {
     lateinit var subjectService: SubjectService
     @Autowired
     lateinit var studentService: StudentService
+    @Autowired
+    lateinit var groupService: GroupService
 
     @Bean
     fun init() = CommandLineRunner {
@@ -53,6 +49,10 @@ class DevelopmentConfig {
         val listObjGrade: MutableList<Grade> = mutableListOf()
         val localDate: LocalDate = LocalDate.now()
 
+        groupService.initDefaultGroups()
+        val admin = studentService.save(Student(
+            firstName = "админ", lastName = "админ", login = "admin", password = "admin",
+            groups = mutableListOf( groupService.getByName("GROUP_ADMIN"))))
 
         listSubject.forEach{
             listObjSubject.add(subjectService.save(Subject(title = it)))

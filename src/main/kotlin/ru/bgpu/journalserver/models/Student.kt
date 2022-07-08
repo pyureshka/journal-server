@@ -11,7 +11,14 @@ data class Student (
     var firstName: String? = null,
     var lastName: String? = null,
     @ManyToOne(fetch = FetchType.LAZY)
-    var classItem: ClassItem? = null
+    var classItem: ClassItem? = null,
+
+    var login: String? = null,
+    var password: String? = null,
+    var active: Boolean? = null,
+
+    @ManyToMany
+    var groups: MutableList<Group> = ArrayList()
 ) {
     fun toDto(): StudentDto = StudentDto(
         id = id,

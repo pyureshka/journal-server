@@ -12,6 +12,8 @@ class StudentController {
 
     @GetMapping
     fun getStudentsClass(@RequestParam(name = "classId") id: Long): List<StudentDto> = studentService.getStudentByClass(id).map { it.toDto() }
+    @GetMapping("/{id}")
+    fun getStudent(@PathVariable id: Long): StudentDto = studentService.get(id).toDto()
     @DeleteMapping("/{id}")
     fun deleteStudent(@PathVariable id: Long) { studentService.deleteStudentById(id) }
     @PutMapping("/{id}")

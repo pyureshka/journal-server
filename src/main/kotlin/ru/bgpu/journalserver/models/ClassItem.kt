@@ -17,6 +17,5 @@ data class ClassItem (
         id = id,
         liter = liter,
         number = number,
-        subjects = subjects
     )
 }

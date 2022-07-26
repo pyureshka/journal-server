@@ -10,6 +10,7 @@ import ru.bgpu.journalserver.dto.SubjectDto
 import ru.bgpu.journalserver.services.ClassItemService
 import ru.bgpu.journalserver.services.GradeService
 import ru.bgpu.journalserver.services.SubjectService
+import java.util.Date
 
 @RestController
 class JournalController {
@@ -26,4 +27,6 @@ class JournalController {
     fun getGrades(@RequestParam(name = "subjectId") subId: Long,
                   @RequestParam(name = "studentId") studId: Long) : List<GradeDto> =
         gradeService.getGradesBySubjectIdAndStudentId(subId, studId).map { it.toDto() }
+    @GetMapping("/grades/dates")
+    fun getDates() : List<Date> = gradeService.getAllDates()
 }

@@ -8,8 +8,6 @@ import ru.bgpu.journalserver.exeptions.ResourceNotFoundException
 import ru.bgpu.journalserver.models.Grade
 import ru.bgpu.journalserver.repositories.GradeRepository
 import ru.bgpu.journalserver.repositories.SubjectRepository
-import java.time.format.DateTimeFormatter
-import java.util.Date
 
 @Service
 class GradeService {
@@ -36,13 +34,12 @@ class GradeService {
 
     fun getGradesByClassAndSubjectAndPeriod(classId: Long, subId: Long, date: String): MutableList<PageDto>? {
         val students = studentService.getStudentByClass(classId)
-        val item = PageDto()
         val page: MutableList<PageDto> = ArrayList()
         val subject = subjectRepository.findSubjectById(subId)
-
         val parts: List<String> = date.split("-")
 
         students.forEach{ student ->
+                val item = PageDto()
                 item.student = student.toDto()
                 item.grades = gradeRepository.findAllBySubjectAndStudentAndDate(subject, student, parts[0].toInt(), parts[1].toInt()).map { it.toDto() }
                 page.add(item)

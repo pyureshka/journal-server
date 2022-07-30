@@ -18,7 +18,7 @@ class StudentService {
 
     fun get(id: Long): Student = studentRepository.findById(id).orElseThrow{ ResourceNotFoundException("Ученик не найден") }
     fun save(student: Student) = studentRepository.save(student)
-    fun getStudentByClass(id: Long) = studentRepository.findStudentByClassItem(classItemService.getById(id))
+    fun getStudentByClass(id: Long): List<Student> = studentRepository.findStudentByClassItem(classItemService.getById(id))
     @Transactional
     fun deleteStudentById(id: Long) {
         val student = get(id)

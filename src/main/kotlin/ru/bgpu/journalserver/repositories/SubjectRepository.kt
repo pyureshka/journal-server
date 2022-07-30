@@ -10,4 +10,5 @@ import ru.bgpu.journalserver.models.Subject
 interface SubjectRepository : CrudRepository<Subject, Long> {
     @Query("select distinct s from Subject s join s.classItems c where c=?1")
     fun findSubjectByClassItems(classItem: ClassItem): List<Subject>
+    fun findSubjectById (subId: Long): Subject
 }

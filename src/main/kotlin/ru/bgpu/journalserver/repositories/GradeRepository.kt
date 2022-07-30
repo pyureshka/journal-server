@@ -11,7 +11,8 @@ import java.util.Date
 @Repository
 interface GradeRepository : CrudRepository<Grade, Long> {
     fun deleteAllByStudent(student: Student)
-    fun findAllBySubjectAndStudent(subject: Subject, student: Student): List<Grade>
+    @Query("select g from Grade g where g.subject=?1 and g.student=?2 and year(g.date)=?3 and month(g.date)=?4")
+    fun findAllBySubjectAndStudentAndDate(subject: Subject, student: Student, year: Int, month: Int): List<Grade>
     @Query("select distinct g.date from Grade g")
     fun findAllDates(): List<Date>
 }

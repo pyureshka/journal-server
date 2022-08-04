@@ -59,4 +59,7 @@ class GradeService {
     fun deleteGrade(id: Long) {
         gradeRepository.delete(getById(id))
     }
+    fun createGrade(newGrade: Grade) {
+        gradeRepository.save(newGrade)
+    }
 }

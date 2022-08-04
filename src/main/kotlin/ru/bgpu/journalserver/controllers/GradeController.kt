@@ -20,4 +20,6 @@ class GradeController {
     fun updateGrade(@PathVariable id: Long, @RequestBody gradeDto: GradeDto) = gradeService.updateGrade(id, gradeDto.toGrade()).toDto()
     @DeleteMapping("/{id}")
     fun deleteGrade(@PathVariable id: Long) = gradeService.deleteGrade(id)
+    @PostMapping("/add")
+    fun createGrade(@RequestBody gradeDto: GradeDto) = gradeService.createGrade(gradeDto.toGrade())
 }

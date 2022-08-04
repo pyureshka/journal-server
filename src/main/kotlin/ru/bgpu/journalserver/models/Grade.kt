@@ -1,7 +1,6 @@
 package ru.bgpu.journalserver.models
 
 import ru.bgpu.journalserver.dto.GradeDto
-import ru.bgpu.journalserver.dto.SubjectDto
 import java.util.Date
 import javax.persistence.*
 
@@ -14,13 +13,15 @@ data class Grade (
     @Temporal(TemporalType.DATE)
     var date: Date? = null,
     @ManyToOne (fetch = FetchType.LAZY)
-    var student: Student? = null,
+    var student: Student,
     @ManyToOne(fetch = FetchType.LAZY)
-    var subject: Subject? = null
+    var subject: Subject
 ) {
     fun toDto(): GradeDto = GradeDto(
         id = id,
         grade = grade,
-        date = date
+        date = date,
+        student = student.toDto(),
+        subject = subject.toDto()
     )
 }

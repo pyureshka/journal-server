@@ -16,4 +16,5 @@ class ClassItemService {
     fun getAllClasses(): List<ClassItem> = classItemRepository.findAll() as List<ClassItem>
     fun getById(id: Long): ClassItem =
         classItemRepository.findByIdOrNull(id) ?: throw ResourceNotFoundException("Класс с ID $id не найден")
+    fun createClass(classItem: ClassItem) = classItemRepository.save(classItem)
 }

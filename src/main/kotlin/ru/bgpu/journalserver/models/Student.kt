@@ -23,6 +23,7 @@ data class Student (
     fun toDto(): StudentDto = StudentDto(
         id = id,
         firstName = firstName,
-        lastName = lastName
+        lastName = lastName,
+        classItem = classItem?.toDto()
     )
 }

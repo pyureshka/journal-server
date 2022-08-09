@@ -6,12 +6,11 @@ data class ClassItemDto(
     var id: Long? = null,
     var liter: String? = null,
     var number: Int? = null,
-    var subjects: List <SubjectDto>
+    var subjectsId: List<Long?> = ArrayList()
 ) {
     fun toClassItem() = ClassItem(
         id = id,
         liter = liter,
-        number = number,
-        subjects = subjects.map { it.toSubject() }
+        number = number
     )
 }

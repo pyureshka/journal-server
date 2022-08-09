@@ -4,7 +4,7 @@ import ru.bgpu.journalserver.dto.ClassItemDto
 import javax.persistence.*
 
 @Entity
-data class ClassItem (
+data class ClassItem(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
@@ -17,6 +17,6 @@ data class ClassItem (
         id = id,
         liter = liter,
         number = number,
-        subjects = subjects.map { it.toDto() }
+        subjectsId = subjects.map { it.id }
     )
 }

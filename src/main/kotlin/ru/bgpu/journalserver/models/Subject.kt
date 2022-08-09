@@ -14,6 +14,7 @@ data class Subject(
 ) {
     fun toDto(): SubjectDto = SubjectDto(
         id = id,
-        title = title
+        title = title,
+        classItemsId = classItems.map { it.id }
     )
 }

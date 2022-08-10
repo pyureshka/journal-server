@@ -1,11 +1,7 @@
 package ru.bgpu.journalserver.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import ru.bgpu.journalserver.dto.ClassItemDto
 import ru.bgpu.journalserver.services.ClassItemService
 import ru.bgpu.journalserver.services.SubjectService
@@ -24,5 +20,11 @@ class ClassItemController {
         val classItem = classItemDto.toClassItem()
         classItem.subjects = subjectService.listSubjectsByListId(classItemDto.subjectsId)
         classItemService.createClass(classItem)
+    }
+    @PutMapping("/{id}")
+    fun editClassItem(@PathVariable id: Long, @RequestBody classItemDto: ClassItemDto) {
+        val classItem = classItemDto.toClassItem()
+        classItem.subjects = subjectService.listSubjectsByListId(classItemDto.subjectsId)
+        classItemService.updateClassItem(classItem)
     }
 }

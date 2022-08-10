@@ -1,12 +1,8 @@
 package ru.bgpu.journalserver.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import ru.bgpu.journalserver.dto.StudentDto
 import ru.bgpu.journalserver.dto.SubjectDto
 import ru.bgpu.journalserver.models.Subject
 import ru.bgpu.journalserver.services.ClassItemService
@@ -31,4 +27,7 @@ class SubjectController {
         subject.classItems = classItemService.listClassesByListId(subjectDto.classItemsId)
         subjectService.createSubject(subject)
     }
+
+    @PutMapping("/{id}")
+    fun updateSubject(@PathVariable id: Long, @RequestBody subjectDto: SubjectDto) = subjectService.updateSubject(subjectDto.toSubject()).toDto()
 }

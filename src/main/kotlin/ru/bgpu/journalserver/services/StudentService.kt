@@ -12,19 +12,35 @@ import javax.transaction.Transactional
 
 @Service
 class StudentService {
-    @Autowired lateinit var studentRepository: StudentRepository
-    @Autowired lateinit var classItemService: ClassItemService
-    @Autowired lateinit var gradeRepository: GradeRepository
+    @Autowired
+    lateinit var studentRepository: StudentRepository
+    @Autowired
+    lateinit var classItemService: ClassItemService
+    @Autowired
+    lateinit var gradeRepository: GradeRepository
 
-    fun get(id: Long): Student = studentRepository.findById(id).orElseThrow{ ResourceNotFoundException("Ученик не найден") }
+    fun get(id: Long): Student =
+        studentRepository.findById(id).orElseThrow { ResourceNotFoundException("Ученик не найден") }
+
     fun save(student: Student) = studentRepository.save(student)
-    fun getStudentByClass(id: Long): List<Student> = studentRepository.findStudentByClassItem(classItemService.getById(id))
+    fun getStudentByClass(id: Long): List<Student> =
+        studentRepository.findStudentByClassItem(classItemService.getById(id))
+
     @Transactional
     fun deleteStudentById(id: Long) {
         val student = get(id)
         gradeRepository.deleteAllByStudent(student)
         studentRepository.delete(student)
     }
-    fun updateStudent(student: Student): Student = save(get(student.id ?: throw BadRequestException("")).copy(firstName = student.firstName, lastName = student.lastName))
+
+    fun updateStudent(student: Student): Student = save(
+        get(student.id ?: throw BadRequestException("")).copy(
+            firstName = student.firstName,
+            lastName = student.lastName,
+            classItem = student.classItem,
+            archive = student.archive
+        )
+    )
+
     fun createStudent(student: Student): Student = studentRepository.save(student)
 }

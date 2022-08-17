@@ -74,7 +74,8 @@ class DevelopmentConfig {
                 listObjStudent.add( studentService.save(Student (
                         firstName = listNames[random.nextInt(listNames.size)],
                         lastName = listSurnames[random.nextInt(listSurnames.size)],
-                        classItem = listObjClass[i]
+                        classItem = listObjClass[i],
+                        groups = mutableListOf( groupService.getByName("GROUP_STUDENTS"))
                     )
                 ))
             }
@@ -82,12 +83,11 @@ class DevelopmentConfig {
 
         listObjStudent.forEach {
             for (i in 0 until it.classItem!!.subjects.size) {
-                for (j in 0..random.nextInt(5)) {
-
+                for (j in 0..random.nextInt(40)) {
                     listObjGrade.add(gradeService.save(Grade (
-                            grade = random.nextInt(4)+1,
+                            grade = random.nextInt(5)+1,
                             student = it, subject = it.classItem!!.subjects[i],
-                            date =  Date.from(localDate.minusDays(random.nextInt(30).toLong()).atStartOfDay(ZoneId.systemDefault()).toInstant())
+                            date =  Date.from(localDate.minusDays(random.nextInt(365).toLong()).atStartOfDay(ZoneId.systemDefault()).toInstant())
                         )
                     ))
                 }

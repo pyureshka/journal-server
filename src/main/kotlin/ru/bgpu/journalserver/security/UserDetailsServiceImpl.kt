@@ -23,7 +23,7 @@ class UserDetailsServiceImpl : UserDetailsService {
                 return org.springframework.security.core.userdetails.User(
                     student.login,
                     student.password,
-                    student.active ?: true,
+                    student.archive ?: false,
                     true, true, true,
                     emptyList()
                 )

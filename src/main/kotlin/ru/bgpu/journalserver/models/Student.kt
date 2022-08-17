@@ -1,5 +1,6 @@
 package ru.bgpu.journalserver.models
 
+import ru.bgpu.journalserver.dto.GroupDto
 import ru.bgpu.journalserver.dto.StudentDto
 import javax.persistence.*
 
@@ -15,7 +16,7 @@ data class Student (
 
     var login: String? = null,
     var password: String? = null,
-    var active: Boolean? = null,
+    var archive: Boolean? = false,
 
     @ManyToMany
     var groups: MutableList<Group> = ArrayList()
@@ -24,6 +25,8 @@ data class Student (
         id = id,
         firstName = firstName,
         lastName = lastName,
-        classItem = classItem?.toDto()
+        classItem = classItem?.toDto(),
+        archive = archive,
+        groups = groups.map { it.toDto() } as MutableList<GroupDto>
     )
 }

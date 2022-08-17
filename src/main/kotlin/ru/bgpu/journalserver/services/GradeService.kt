@@ -37,7 +37,7 @@ class GradeService {
     }
 
     fun getGradesByClassAndSubjectAndPeriod(classId: Long, subId: Long, date: String): MutableList<PageDto>? {
-        val students = studentService.getStudentByClass(classId)
+        val students = studentService.getStudentsByClass(classId)
         val page: MutableList<PageDto> = ArrayList()
         val subject = subjectRepository.findSubjectById(subId)
         val parts: List<String> = date.split("-")

@@ -14,8 +14,10 @@ import javax.transaction.Transactional
 class StudentService {
     @Autowired
     lateinit var studentRepository: StudentRepository
+
     @Autowired
     lateinit var classItemService: ClassItemService
+
     @Autowired
     lateinit var gradeRepository: GradeRepository
 
@@ -23,7 +25,17 @@ class StudentService {
         studentRepository.findById(id).orElseThrow { ResourceNotFoundException("Ученик не найден") }
 
     fun save(student: Student) = studentRepository.save(student)
-    fun getStudentByClass(id: Long): List<Student> =
+    fun getStudentByClassAndArchive(id: Long, archive: Boolean?): List<Student> {
+        val c = classItemService.getById(id)
+
+        return if (archive == null) {
+            studentRepository.findStudentByClassItem(c)
+        } else {
+            studentRepository.findStudentByClassItemAndArchive(c, archive)
+        }
+    }
+
+    fun getStudentsByClass(id: Long): List<Student> =
         studentRepository.findStudentByClassItem(classItemService.getById(id))
 
     @Transactional

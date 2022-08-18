@@ -5,23 +5,23 @@ import java.util.Date
 import javax.persistence.*
 
 @Entity
-data class Grade (
+data class Grade(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     var grade: Int? = null,
     @Temporal(TemporalType.DATE)
     var date: Date? = null,
-    @ManyToOne (fetch = FetchType.LAZY)
-    var student: Student,
     @ManyToOne(fetch = FetchType.LAZY)
-    var subject: Subject
+    var student: Student? = null,
+    @ManyToOne(fetch = FetchType.LAZY)
+    var subject: Subject? = null
 ) {
     fun toDto(): GradeDto = GradeDto(
         id = id,
         grade = grade,
         date = date,
-        student = student.toDto(),
-        subject = subject.toDto()
+        studentId = student?.id,
+        subject = subject?.toDto()
     )
 }

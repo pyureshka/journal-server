@@ -1,8 +1,6 @@
 package ru.bgpu.journalserver.dto
 
 import ru.bgpu.journalserver.models.Grade
-import ru.bgpu.journalserver.models.Student
-import ru.bgpu.journalserver.models.Subject
 import java.util.*
 
 data class GradeDto(

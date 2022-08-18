@@ -24,7 +24,7 @@ interface GradeRepository : CrudRepository<Grade, Long> {
                 cast(json_agg(json_build_object('id', g.id, 'date', g.date, 'grade', g.grade)) as text) end as grades
             from student s
                 left join grade g on s.id = g.student_id and extract(year from g.date) = ?2 and extract(month from g.date) = ?3
-                    where s.class_item_id = ?1
+                    where s.class_item_id = ?1 and g.subject_id = ?4
             group by s.id;
         """, nativeQuery = true
     )

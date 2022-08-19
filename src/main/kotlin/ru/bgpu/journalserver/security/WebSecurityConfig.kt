@@ -15,8 +15,8 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http.httpBasic().disable().authorizeRequests()
-//            .anyRequest().authenticated()
-            .anyRequest().permitAll()
+            .anyRequest().authenticated()
+//            .anyRequest().permitAll()
             .and().exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint())
             .and().userDetailsService(userDetailsService())
             .formLogin().loginPage("/auth").permitAll()

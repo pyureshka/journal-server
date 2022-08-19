@@ -25,12 +25,12 @@ class RESTAuthenticationSuccessHandler : SimpleUrlAuthenticationSuccessHandler()
 
         val mapper = ObjectMapper()
 
-        response.writer?.print(mapper.writeValueAsString(
-            authentication?.name.toString().let {
-                securityService.findStudentByLogin(it)?.toDto() ?:
-                throw ResourceNotFoundException("Ошибка получения данных пользователя")
-            }
-        ))
+//        response.writer?.print(mapper.writeValueAsString(
+//            authentication?.name.toString().let {
+//                securityService.findStudentByLogin(it)?.toDto() ?:
+//                throw ResourceNotFoundException("Ошибка получения данных пользователя")
+//            }
+//        ))
 
         response.writer?.flush()
         clearAuthenticationAttributes(request)

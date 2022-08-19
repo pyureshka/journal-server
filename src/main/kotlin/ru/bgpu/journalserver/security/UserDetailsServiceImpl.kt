@@ -12,18 +12,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 class UserDetailsServiceImpl : UserDetailsService {
     private val log = LoggerFactory.getLogger(this.javaClass)
 
-    @Autowired lateinit var securityService: SecurityService
+    @Autowired
+    lateinit var securityService: SecurityService
 
     override fun loadUserByUsername(login: String?): UserDetails {
         log.info("auth $login")
-        if(login!=null) {
+        if (login != null) {
             val student = securityService.findStudentByLogin(login)
             if (student != null) {
                 log.info("user: ${student.login} - ${student.firstName} ${student.lastName}")
                 return org.springframework.security.core.userdetails.User(
                     student.login,
                     student.password,
-                    student.archive ?: false,
+                    !student.archive!!,
                     true, true, true,
                     emptyList()
                 )

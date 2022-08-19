@@ -13,7 +13,8 @@ class GroupService {
     fun initDefaultGroups() {
         listOf(
             Group(name = "GROUP_ADMIN", description = "Администратор системы"),
-            Group(name = "GROUP_STUDENTS",description = "Ученик")
+            Group(name = "GROUP_STUDENTS",description = "Ученик"),
+            Group(name="GROUP_MANAGER", description = "Менеджер системы")
         ).forEach { save(it) }
     }
     fun getByName(name: String): Group = groupRepository.findByName(name)

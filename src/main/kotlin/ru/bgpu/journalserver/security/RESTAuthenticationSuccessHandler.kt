@@ -18,19 +18,23 @@ class RESTAuthenticationSuccessHandler : SimpleUrlAuthenticationSuccessHandler()
     @Autowired
     lateinit var securityService: SecurityService
 
-    override fun onAuthenticationSuccess(request: HttpServletRequest, response: HttpServletResponse, authentication: Authentication?) {
+    override fun onAuthenticationSuccess(
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+        authentication: Authentication?
+    ) {
         log.info("success login")
         response.status = HttpServletResponse.SC_OK
         response.contentType = "application/json;charset=UTF8"
 
         val mapper = ObjectMapper()
 
-//        response.writer?.print(mapper.writeValueAsString(
-//            authentication?.name.toString().let {
-//                securityService.findStudentByLogin(it)?.toDto() ?:
-//                throw ResourceNotFoundException("Ошибка получения данных пользователя")
-//            }
-//        ))
+        response.writer?.print(mapper.writeValueAsString(
+            authentication?.name.toString().let {
+                securityService.findStudentByLogin(it)?.toDto()
+                    ?: throw ResourceNotFoundException("Ошибка получения данных пользователя")
+            }
+        ))
 
         response.writer?.flush()
         clearAuthenticationAttributes(request)

@@ -18,7 +18,7 @@ data class Student (
     var password: String? = null,
     var archive: Boolean? = false,
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     var groups: MutableList<Group> = ArrayList()
 ) {
     fun toDto(): StudentDto = StudentDto(

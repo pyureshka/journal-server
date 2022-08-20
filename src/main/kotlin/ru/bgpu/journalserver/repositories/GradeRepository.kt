@@ -19,12 +19,14 @@ interface GradeRepository : CrudRepository<Grade, Long> {
 
     @Query(
         value = """
-            select s.id, s.first_name as firstName, s.last_name as lastName,
+            select s.id, s.first_name as firstName, s.last_name as lastName, 
                 case when sum(coalesce(g.id, 0)) = 0 then '[]' else 
                 cast(json_agg(json_build_object('id', g.id, 'date', g.date, 'grade', g.grade)) as text) end as grades
             from student s
-                left join grade g on s.id = g.student_id and extract(year from g.date) = ?2 and extract(month from g.date) = ?3
-                    where s.class_item_id = ?1 and g.subject_id = ?4
+                left join grade g on s.id = g.student_id and extract(year from g.date) = ?2 
+                and extract(month from g.date) = ?3
+                and g.subject_id = ?4
+                    where s.class_item_id = ?1 
             group by s.id;
         """, nativeQuery = true
     )

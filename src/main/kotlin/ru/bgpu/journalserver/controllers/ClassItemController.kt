@@ -9,7 +9,7 @@ import ru.bgpu.journalserver.services.SubjectService
 
 @RestController
 @RequestMapping("/classes")
-@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+@PreAuthorize("hasAnyAuthority('GROUP_ADMIN', 'GROUP_MANAGER')")
 class ClassItemController {
     @Autowired lateinit var classItemService: ClassItemService
     @Autowired lateinit var subjectService: SubjectService
@@ -18,14 +18,14 @@ class ClassItemController {
     fun getClasses(): List<ClassItemDto> = classItemService.getAllClasses().map { it.toDto() }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('GROUP_ADMIN')")
     fun createClass(@RequestBody classItemDto: ClassItemDto) {
         val classItem = classItemDto.toClassItem()
         classItem.subjects = subjectService.listSubjectsByListId(classItemDto.subjectsId)
         classItemService.createClass(classItem)
     }
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('GROUP_ADMIN')")
     fun editClassItem(@PathVariable id: Long, @RequestBody classItemDto: ClassItemDto) {
         val classItem = classItemDto.toClassItem()
         classItem.subjects = subjectService.listSubjectsByListId(classItemDto.subjectsId)

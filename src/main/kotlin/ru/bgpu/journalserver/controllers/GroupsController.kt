@@ -11,7 +11,7 @@ import ru.bgpu.journalserver.services.GroupService
 
 @RestController
 @RequestMapping("/groups")
-@PreAuthorize("hasAnyAuthority('ADMIN')")
+@PreAuthorize("hasAnyAuthority('GROUP_ADMIN')")
 class GroupsController {
     @Autowired lateinit var groupService: GroupService
 

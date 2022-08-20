@@ -11,7 +11,7 @@ import ru.bgpu.journalserver.services.SubjectService
 
 @RestController
 @RequestMapping("/grades")
-@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+@PreAuthorize("hasAnyAuthority('GROUP_ADMIN', 'GROUP_MANAGER')")
 class GradeController {
     @Autowired
     lateinit var gradeService: GradeService

@@ -7,7 +7,7 @@ import ru.bgpu.journalserver.dto.StudentDto
 import ru.bgpu.journalserver.services.StudentService
 
 @RestController
-@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+@PreAuthorize("hasAnyAuthority('GROUP_ADMIN', 'GROUP_MANAGER')")
 @RequestMapping("/students")
 class StudentController {
     @Autowired
@@ -25,17 +25,17 @@ class StudentController {
     fun getStudent(@PathVariable id: Long): StudentDto = studentService.get(id).toDto()
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('GROUP_ADMIN')")
     fun deleteStudent(@PathVariable id: Long) {
         studentService.deleteStudentById(id)
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('GROUP_ADMIN')")
     fun updateStudent(@PathVariable id: Long, @RequestBody studentDto: StudentDto) =
         studentService.updateStudent(studentDto.toStudent()).toDto()
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('GROUP_ADMIN')")
     fun addStudent(@RequestBody studentDto: StudentDto) = studentService.createStudent(studentDto.toStudent()).toDto()
 }

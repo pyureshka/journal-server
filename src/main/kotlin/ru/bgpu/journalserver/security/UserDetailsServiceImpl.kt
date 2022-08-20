@@ -2,11 +2,11 @@ package ru.bgpu.journalserver.security
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-
 
 @Service
 class UserDetailsServiceImpl : UserDetailsService {
@@ -26,7 +26,8 @@ class UserDetailsServiceImpl : UserDetailsService {
                     student.password,
                     !student.archive!!,
                     true, true, true,
-                    emptyList()
+                    AuthorityUtils.createAuthorityList(*student.groups.stream()
+                        .map { it.name }.toArray { length -> arrayOfNulls(length) })
                 )
             }
         }

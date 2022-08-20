@@ -3,6 +3,7 @@ package ru.bgpu.journalserver.security
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -12,6 +13,7 @@ import org.springframework.security.web.authentication.logout.HttpStatusReturnin
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = false)
 class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http.httpBasic().disable().authorizeRequests()
@@ -25,15 +27,16 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
             .successHandler(restAuthenticationSuccessHandler())
             .failureHandler(SimpleUrlAuthenticationFailureHandler())
             .and().csrf().disable()
-            .logout().permitAll().logoutSuccessHandler(HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
+            .logout().permitAll()
+            .logoutSuccessHandler(HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
             .and().cors()
     }
 
     @Bean
-    fun restAuthenticationSuccessHandler() : RESTAuthenticationSuccessHandler = RESTAuthenticationSuccessHandler()
+    fun restAuthenticationSuccessHandler(): RESTAuthenticationSuccessHandler = RESTAuthenticationSuccessHandler()
 
     @Bean
-    fun restAuthenticationEntryPoint() : RESTAuthenticationEntryPoint = RESTAuthenticationEntryPoint()
+    fun restAuthenticationEntryPoint(): RESTAuthenticationEntryPoint = RESTAuthenticationEntryPoint()
 
     @Bean
     fun passwordEncoder(): PasswordEncoder {
@@ -49,10 +52,6 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    override fun userDetailsService() : UserDetailsServiceImpl = UserDetailsServiceImpl()
-
-}
-
-private fun HttpSecurity.headers(s: String) {
+    override fun userDetailsService(): UserDetailsServiceImpl = UserDetailsServiceImpl()
 
 }

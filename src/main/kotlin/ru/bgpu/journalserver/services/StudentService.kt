@@ -1,6 +1,7 @@
 package ru.bgpu.journalserver.services
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import ru.bgpu.journalserver.exeptions.BadRequestException
 import ru.bgpu.journalserver.exeptions.ResourceNotFoundException
@@ -55,4 +56,10 @@ class StudentService {
     )
 
     fun createStudent(student: Student): Student = studentRepository.save(student)
+
+    fun sessionStudent(): Student =
+        SecurityContextHolder.getContext().authentication.name?.let {
+            studentRepository.findStudentByLogin(it)
+        } ?: throw ResourceNotFoundException("В текущей сессии не найден пользователь")
+
 }

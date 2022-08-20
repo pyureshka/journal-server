@@ -1,6 +1,7 @@
 package ru.bgpu.journalserver.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import ru.bgpu.journalserver.dto.GradeDto
 import ru.bgpu.journalserver.dto.journal.JournalStudentDto
@@ -10,6 +11,7 @@ import ru.bgpu.journalserver.services.SubjectService
 
 @RestController
 @RequestMapping("/grades")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
 class GradeController {
     @Autowired
     lateinit var gradeService: GradeService

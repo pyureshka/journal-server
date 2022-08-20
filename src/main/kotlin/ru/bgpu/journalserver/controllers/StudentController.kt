@@ -1,11 +1,13 @@
 package ru.bgpu.journalserver.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 import ru.bgpu.journalserver.dto.StudentDto
 import ru.bgpu.journalserver.services.StudentService
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
 @RequestMapping("/students")
 class StudentController {
     @Autowired
@@ -23,14 +25,17 @@ class StudentController {
     fun getStudent(@PathVariable id: Long): StudentDto = studentService.get(id).toDto()
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     fun deleteStudent(@PathVariable id: Long) {
         studentService.deleteStudentById(id)
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     fun updateStudent(@PathVariable id: Long, @RequestBody studentDto: StudentDto) =
         studentService.updateStudent(studentDto.toStudent()).toDto()
 
     @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     fun addStudent(@RequestBody studentDto: StudentDto) = studentService.createStudent(studentDto.toStudent()).toDto()
 }

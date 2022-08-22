@@ -84,7 +84,7 @@ class DevelopmentConfig {
                 }
             )
             ))
-            for (j in 0..10) {
+            for (j in 0..15) {
                 listObjStudent.add(
                     studentService.save(
                         Student(
